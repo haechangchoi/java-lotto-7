@@ -37,4 +37,9 @@ public class Lotto {
     public boolean containsBonusNumber(int bonusNumber) {
         return numbers.contains(bonusNumber);
     }
+
+    // 로또 번호 반환 (테스트 용도 또는 출력용)
+    public List<Integer> getNumbers() {
+        return numbers;
+    }
 }
