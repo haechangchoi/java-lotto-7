@@ -21,4 +21,15 @@ public class Lotto {
             }
         }
     }
+
+    // 번호 일치 수 계산 메서드
+    public int getMatchCount(List<Integer> winningNumbers) {
+        int matchCount = 0;
+        for (int number : numbers) {
+            if (winningNumbers.contains(number)) {
+                matchCount++;
+            }
+        }
+        return matchCount;
+    }
 }
