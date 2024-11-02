@@ -32,4 +32,9 @@ public class Lotto {
         }
         return matchCount;
     }
+
+    // 보너스 번호 포함 여부 확인 메서드
+    public boolean containsBonusNumber(int bonusNumber) {
+        return numbers.contains(bonusNumber);
+    }
 }
