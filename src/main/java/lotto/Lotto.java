@@ -14,16 +14,25 @@ public class Lotto {
 
     // 번호 검증 메서드: 번호가 6개이며 각각이 1~45 사이의 숫자인지 확인하고 중복이 없는지 확인
     private void validate(List<Integer> numbers) {
+        checkSize(numbers);
+        checkForDuplicates(numbers);
+        checkNumberRange(numbers);
+    }
+
+    private void checkSize(List<Integer> numbers) {
         if (numbers.size() != 6) {
             throw new IllegalArgumentException("[ERROR] 로또 번호는 6개여야 합니다.");
         }
+    }
 
-        // 중복 체크
+    private void checkForDuplicates(List<Integer> numbers) {
         Set<Integer> uniqueNumbers = new HashSet<>(numbers);
         if (uniqueNumbers.size() != numbers.size()) {
             throw new IllegalArgumentException("[ERROR] 로또 번호에는 중복된 숫자가 있을 수 없습니다.");
         }
+    }
 
+    private void checkNumberRange(List<Integer> numbers) {
         for (int number : numbers) {
             if (number < 1 || number > 45) {
                 throw new IllegalArgumentException("[ERROR] 로또 번호는 1부터 45 사이의 숫자여야 합니다.");
