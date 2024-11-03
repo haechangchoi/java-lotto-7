@@ -1,5 +1,7 @@
 package lotto;
 
+// Application.java
+
 import camp.nextstep.edu.missionutils.Console;
 import java.util.Arrays;
 import java.util.List;
@@ -15,8 +17,8 @@ public class Application {
             List<Lotto> purchasedLottos = lottoMachine.purchaseLottos(purchaseAmount);
             displayPurchasedLottos(purchasedLottos);
 
-            List<Integer> winningNumbers = getWinningNumbers();
-            int bonusNumber = getBonusNumber();
+            List<Integer> winningNumbers = getValidWinningNumbers();
+            int bonusNumber = getValidBonusNumber();
 
             Map<Rank, Integer> results = lottoMachine.calculateResults(purchasedLottos, winningNumbers, bonusNumber);
             displayResults(results);
@@ -39,16 +41,38 @@ public class Application {
         purchasedLottos.forEach(lotto -> System.out.println(lotto.getNumbers()));
     }
 
-    private static List<Integer> getWinningNumbers() {
-        System.out.println("당첨 번호를 입력해 주세요.");
-        return Arrays.stream(Console.readLine().split(","))
-                .map(Integer::parseInt)
-                .collect(Collectors.toList());
+    private static List<Integer> getValidWinningNumbers() {
+        while (true) {
+            try {
+                System.out.println("당첨 번호를 입력해 주세요.");
+                List<Integer> winningNumbers = Arrays.stream(Console.readLine().split(","))
+                        .map(Integer::parseInt)
+                        .collect(Collectors.toList());
+
+                if (winningNumbers.size() != 6) {
+                    throw new IllegalArgumentException("당첨 번호는 6개여야 합니다.");
+                }
+                return winningNumbers;
+            } catch (IllegalArgumentException e) {
+                System.out.println("[ERROR] " + e.getMessage());
+            }
+        }
     }
 
-    private static int getBonusNumber() {
-        System.out.println("보너스 번호를 입력해 주세요.");
-        return Integer.parseInt(Console.readLine());
+    private static int getValidBonusNumber() {
+        while (true) {
+            try {
+                System.out.println("보너스 번호를 입력해 주세요.");
+                int bonusNumber = Integer.parseInt(Console.readLine());
+
+                if (bonusNumber < 1 || bonusNumber > 45) {
+                    throw new IllegalArgumentException("보너스 번호는 1부터 45 사이의 숫자여야 합니다.");
+                }
+                return bonusNumber;
+            } catch (IllegalArgumentException e) {
+                System.out.println("[ERROR] " + e.getMessage());
+            }
+        }
     }
 
     private static void displayResults(Map<Rank, Integer> results) {
