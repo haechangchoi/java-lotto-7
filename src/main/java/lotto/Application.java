@@ -22,10 +22,10 @@ public class Application {
             displayResults(results);
 
             double yield = lottoMachine.calculateYield(purchaseAmount, results);
-            System.out.printf("총 수익률은 %.1f%%입니다.%n", yield);
+            System.out.printf("총 수익률은 %.1f%%입니다.%n", yield * 100); // 수익률을 퍼센트로 변환하여 출력
 
         } catch (IllegalArgumentException e) {
-            System.out.println(e.getMessage());
+            System.out.println("[ERROR] " + e.getMessage());
         }
     }
 
